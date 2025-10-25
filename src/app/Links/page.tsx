@@ -90,15 +90,33 @@ function Links() {
         {/* Beautiful Mesh Grid Background */}
         <div className='absolute -z-10 inset-0' role="presentation" aria-hidden="true">
           {/* Main Grid */}
-          <div className='h-full w-full grid grid-cols-[repeat(16,1fr)] grid-rows-[repeat(15,1fr)]'>
-            {Array.from({ length: 300 }).map((_, i) => (
-              <div 
-                key={i} 
-                className='border border-gray-500/30'
-                aria-hidden="true"
-              />
-            ))}
-          </div>
+         <div className='h-full w-full grid grid-cols-[repeat(6,1fr)] grid-rows-[repeat(10,1fr)] sm:grid-cols-[repeat(12,1fr)] sm:grid-rows-[repeat(14,1fr)] md:grid-cols-[repeat(16,1fr)] md:grid-rows-[repeat(15,1fr)] lg:grid-cols-[repeat(20,1fr)] lg:grid-rows-[repeat(15,1fr)]'>
+          {/* Mobile: 8x12=96, SM: 12x14=168, MD: 16x15=240, LG: 20x15=300 */}
+          {Array.from({ length: 300 }).map((_, i) => (
+            <div 
+              key={i} 
+              className='border border-black/10 hidden lg:block'
+            />
+          ))}
+          {Array.from({ length: 240 }).map((_, i) => (
+            <div 
+              key={`md-${i}`} 
+              className='border border-gray-500/10 hidden md:block lg:hidden'
+            />
+          ))}
+          {Array.from({ length: 168 }).map((_, i) => (
+            <div 
+              key={`sm-${i}`} 
+              className='border border-gray-700/10 hidden sm:block md:hidden'
+            />
+          ))}
+          {Array.from({ length: 96 }).map((_, i) => (
+            <div 
+              key={`mobile-${i}`} 
+              className='border border-gray-200/10 block sm:hidden'
+            />
+          ))}
+        </div>
         </div>
 
         {/* Main Content */}
