@@ -1,6 +1,6 @@
 "use client"
-import { useState, useEffect } from 'react'
-import { AnimatePresence } from 'framer-motion'
+import { useState, useEffect, useRef } from 'react'
+import { gsap } from 'gsap'
 import LoadingScreen from './LoadingScreen'
 
 interface LoadingWrapperProps {
@@ -10,12 +10,19 @@ interface LoadingWrapperProps {
 export default function LoadingWrapper({ children }: LoadingWrapperProps) {
   const [isLoading, setIsLoading] = useState(true)
   const [showContent, setShowContent] = useState(false)
+  const contentRef = useRef<HTMLDivElement>(null)
 
   const handleLoadingComplete = () => {
     setIsLoading(false)
     // Small delay to ensure smooth transition
     setTimeout(() => {
       setShowContent(true)
+      if (contentRef.current) {
+        gsap.fromTo(contentRef.current,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.8, ease: "power3.out" }
+        )
+      }
     }, 100)
   }
 
@@ -42,14 +49,12 @@ export default function LoadingWrapper({ children }: LoadingWrapperProps) {
 
   return (
     <>
-      <AnimatePresence mode="wait">
-        {isLoading && (
-          <LoadingScreen onComplete={handleLoadingComplete} />
-        )}
-      </AnimatePresence>
+      {isLoading && (
+        <LoadingScreen onComplete={handleLoadingComplete} />
+      )}
       
       {showContent && (
-        <div style={{ opacity: showContent ? 1 : 0 }}>
+        <div ref={contentRef} style={{ opacity: showContent ? 1 : 0 }}>
           {children}
         </div>
       )}
