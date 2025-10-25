@@ -16,26 +16,39 @@ import Contact from './aboutus/email';
 export default function Home() {
   return (
     <>
-    <div className="h-screen  " >
-     <Navbar/>
-     <Hero></Hero>
-    </div>
-     <div className='bg-black rounded-sm'>
-      <Video></Video>
-      <Shortform></Shortform>
-      <Thumbnail></Thumbnail>
-      <Longform></Longform>
-     </div>
-     <div>
-      <Pricing></Pricing>
-     </div>
-     <div><About></About>
-     <Workflow></Workflow>
-     <Testimonials></Testimonials>
-     <FAQ></FAQ>
-     <Contact></Contact>
-
-     </div>
+      {/* Fixed Hero Background */}
+        <div className='h-screen sticky'>
+          <Navbar/>
+          
+      <div className="fixed inset-0 z-0">
+        
+        <Hero></Hero>
+      </div>
+      
+      {/* Scrollable Content Over Hero */}
+      <div className="relative z-10">
+        {/* Spacer to push content down initially */}
+        <div className="h-screen"></div>
+        
+        {/* Content sections that will scroll over the hero */}
+        <div className='bg-black rounded-sm'>
+          <Video></Video>
+          <Shortform></Shortform>
+          <Thumbnail></Thumbnail>
+          <Longform></Longform>
+        </div>
+        <div>
+          <Pricing></Pricing>
+        </div>
+        <div>
+          <About></About>
+          <Workflow></Workflow>
+          <Testimonials></Testimonials>
+          <FAQ></FAQ>
+          <Contact></Contact>
+        </div>
+      </div>
+      </div>
     </>
   );
 }

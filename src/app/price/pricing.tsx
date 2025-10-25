@@ -368,7 +368,7 @@ export default function Pricing() {
 										))}
 									</ul>
 
-									<motion.button
+									<a href="/Links"><motion.button
 										onClick={() => handleGetStarted(currentCategory.id, plan.name)}
 										whileHover={{ scale: 1.02 }}
 										whileTap={{ scale: 0.98 }}
@@ -376,13 +376,14 @@ export default function Pricing() {
 									>
 										Get Started
 									</motion.button>
+									</a>
 								</div>
 							</div>
 						</motion.div>
 					))}
 				</motion.div>
 
-				<motion.p
+				<a href="/Links"><motion.p
 					initial={{ opacity: 0 }}
 					whileInView={{ opacity: 1 }}
 					transition={{ delay: 0.8 }}
@@ -395,6 +396,7 @@ export default function Pricing() {
 					</span>{' '}
 					for enterprise solutions.
 				</motion.p>
+				</a>
 			</div>
 		</section>
 	);

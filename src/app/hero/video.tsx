@@ -60,21 +60,46 @@ function Video() {
     },
   ];
   return (
-    <section className="relative min-h-screen bg-linear-to-br from-black via-gray-900 to-black overflow-hidden py-32">
+    <motion.section 
+      className="relative min-h-screen bg-linear-to-br from-black via-gray-900 to-black overflow-hidden py-32"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 1.2 }}
+      viewport={{ once: true }}
+    >
       {/* Animated Background Elements */}
-      <div className="absolute inset-0">
+      <motion.div 
+        className="absolute inset-0"
+        initial={{ scale: 1.1, opacity: 0 }}
+        whileInView={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 1.5, ease: "easeOut" }}
+        viewport={{ once: true }}
+      >
         {/* Grid Pattern */}
-        <div className='absolute inset-0 opacity-10'>
+        <motion.div 
+          className='absolute inset-0 opacity-10'
+          initial={{ y: 50 }}
+          whileInView={{ y: 0 }}
+          transition={{ duration: 1, delay: 0.3 }}
+          viewport={{ once: true }}
+        >
           <div className='h-full w-full grid grid-cols-[repeat(20,1fr)] grid-rows-[repeat(15,1fr)]'>
             {Array.from({ length: 300 }).map((_, i) => (
-              <div 
+              <motion.div 
                 key={i} 
                 className='border border-white/10'
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ 
+                  duration: 0.1, 
+                  delay: (i % 20) * 0.01 + Math.floor(i / 20) * 0.02 
+                }}
+                viewport={{ once: true }}
               />
             ))}
           </div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       <div className="relative z-10 container mx-auto px-4">
         {/* Main Title */}
@@ -92,12 +117,28 @@ function Video() {
         </motion.div>
 
         {/* Video Container */}
-        <div className="max-w-4xl mx-auto mb-32">
-          <div className="relative group">
+        <motion.div 
+          className="max-w-4xl mx-auto mb-32"
+          initial={{ opacity: 0, y: 80, scale: 0.9 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 1, delay: 0.4, ease: "easeOut" }}
+          viewport={{ once: true }}
+        >
+          <motion.div 
+            className="relative group"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3 }}
+          >
             {/* Video Frame with Glow */}
             <div className="relative">
               {/* Outer Glow */}
-              <div className="absolute -inset-8 bg-linear-to-r from-purple-500/20 via-pink-500/20 to-blue-500/20 rounded-2xl blur-2xl group-hover:blur-3xl transition-all duration-500"></div>
+              <motion.div 
+                className="absolute -inset-8 bg-linear-to-r from-purple-500/20 via-pink-500/20 to-blue-500/20 rounded-2xl blur-2xl group-hover:blur-3xl transition-all duration-500"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 1.5, delay: 0.6 }}
+                viewport={{ once: true }}
+              ></motion.div>
               
               {/* Inner Frame */}
               <div className="relative bg-linear-to-br from-gray-800/50 to-gray-900/50 p-6 rounded-2xl backdrop-blur-sm border border-white/10">
@@ -155,11 +196,17 @@ function Video() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Services Grid */}
-        <div className="max-w-7xl mx-auto">
+        <motion.div 
+          className="max-w-7xl mx-auto"
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.8 }}
+          viewport={{ once: true }}
+        >
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, index) => (
               <motion.div
@@ -198,9 +245,9 @@ function Video() {
               </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   )
 }
 

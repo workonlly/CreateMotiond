@@ -1,7 +1,7 @@
 "use client"
 import { motion, useMotionValue, useTransform, AnimatePresence } from 'framer-motion';
 import { TrendingUp, Play, Pause, Volume2, VolumeX } from 'lucide-react';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 
 const reels = [
   { 
@@ -46,6 +46,17 @@ export default function ShortformShowcase() {
   const [activeVideo, setActiveVideo] = useState<number | null>(null);
   const [isMuted, setIsMuted] = useState(true);
   
+  // Pre-generate random values to avoid hydration mismatch
+  const particles = useMemo(() => 
+    Array.from({ length: 15 }).map((_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      top: Math.random() * 100,
+      duration: 5 + Math.random() * 10,
+      delay: Math.random() * 5
+    })), []
+  );
+  
   return (
     <section className="relative py-16 sm:py-24 md:py-32 px-4 overflow-hidden">
       {/* Enhanced animated background */}
@@ -62,22 +73,22 @@ export default function ShortformShowcase() {
         </div>
         
         {/* Floating particles */}
-        {Array.from({ length: 15 }).map((_, i) => (
+        {particles.map((particle) => (
           <motion.div 
-            key={i}
+            key={particle.id}
             className="absolute w-1 h-1 bg-white rounded-full opacity-50"
             style={{ 
-              left: `${Math.random() * 100}%`, 
-              top: `${Math.random() * 100}%` 
+              left: `${particle.left}%`, 
+              top: `${particle.top}%` 
             }}
             animate={{
               y: [0, -20, 0],
               opacity: [0.2, 0.8, 0.2]
             }}
             transition={{
-              duration: 5 + Math.random() * 10,
+              duration: particle.duration,
               repeat: Infinity,
-              delay: Math.random() * 5
+              delay: particle.delay
             }}
           />
         ))}
