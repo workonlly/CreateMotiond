@@ -19,13 +19,61 @@ import Contact from './aboutus/email';
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
   const [showContent, setShowContent] = useState(false)
+  const [componentsLoaded, setComponentsLoaded] = useState(false)
 
   const handleLoadingComplete = () => {
-    setIsLoading(false)
-    setTimeout(() => {
-      setShowContent(true)
-    }, 300)
+    // Only proceed if components are actually loaded
+    if (componentsLoaded) {
+      setIsLoading(false)
+      setTimeout(() => {
+        setShowContent(true)
+      }, 300)
+    }
   }
+
+  // Preload and prepare all components
+  useEffect(() => {
+    const preloadComponents = async () => {
+      // Simulate component loading time and ensure all heavy components are ready
+      await new Promise(resolve => setTimeout(resolve, 2000)) // Minimum 2 seconds for real loading
+      
+      // Pre-render components in background to ensure they're ready
+      const componentsToPreload = [
+        import('./navbar/navbar'),
+        import('./hero/hero'),
+        import('./editsshowcasesection/shortform'),
+        import('./editsshowcasesection/thumbnail'),
+        import('./editsshowcasesection/longform'),
+        import('./hero/video'),
+        import('./price/pricing'),
+        import('./aboutus/aboutus'),
+        import('./aboutus/pathline'),
+        import('./aboutus/clientreview'),
+        import('./aboutus/frequent'),
+        import('./aboutus/email')
+      ]
+
+      try {
+        await Promise.all(componentsToPreload)
+        setComponentsLoaded(true)
+      } catch (error) {
+        console.log('Components loaded with some delays, proceeding...')
+        setComponentsLoaded(true)
+      }
+    }
+
+    preloadComponents()
+  }, [])
+
+  // Auto-trigger loading complete when components are ready
+  useEffect(() => {
+    if (componentsLoaded && isLoading) {
+      // Small delay to ensure loading screen shows minimum time
+      setTimeout(() => {
+        handleLoadingComplete()
+      }, 500)
+    }
+  }, [componentsLoaded, isLoading])
 
   useEffect(() => {
     // Add service-specific structured data
@@ -85,23 +133,41 @@ export default function Home() {
         <LoadingScreen onComplete={handleLoadingComplete} />
       )}
 
+      {/* Pre-load components invisibly while loading */}
+      {!componentsLoaded && (
+        <div className="fixed -left-full -top-full opacity-0 pointer-events-none">
+          <Navbar />
+          <Hero />
+          <Video />
+          <Shortform />
+          <Thumbnail />
+          <Longform />
+          <Pricing />
+          <About />
+          <Workflow />
+          <Testimonials />
+          <FAQ />
+          <Contact />
+        </div>
+      )}
+
       {/* Main Content */}
       {showContent && (
         <>
           {/* Fixed Hero Background */}
-          <div className='h-screen sticky overflow-hidden'>
-            <div className="relative z-20">
+          <div className='h-screen sticky top-0'>
+            <div className="absolute top-0 left-0 w-full z-20">
               <Navbar />
             </div>
             
-            {/* Main content */}
-            <div className="relative z-10">
+            {/* Fixed Hero Background */}
+            <div className="absolute inset-0 z-10">
                 <Hero />
             </div>
           </div>
           
           {/* Scrollable Content Over Hero */}
-          <div className="relative z-10">          
+          <div className="relative z-30 bg-white">
           {/* Content sections that will scroll over the hero */}
           <section className='bg-black rounded-sm' aria-label="Our Services">
             <Video></Video>
