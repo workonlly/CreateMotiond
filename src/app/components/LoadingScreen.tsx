@@ -79,9 +79,17 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
       setProgress(prev => {
         if (prev >= 100) {
           clearInterval(timer)
-          // Simply call onComplete without exit animation
-          // Parent component will handle the upward slide
-          setTimeout(() => onComplete(), 300)
+          // Animate the entire loading screen upward when complete
+          if (containerRef.current) {
+            gsap.to(containerRef.current, {
+              y: '-100%',
+              duration: 1.2,
+              ease: 'power3.inOut',
+              onComplete: () => onComplete()
+            })
+          } else {
+            setTimeout(() => onComplete(), 300)
+          }
           return 100
         }
         return prev + 2

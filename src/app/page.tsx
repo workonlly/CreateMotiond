@@ -1,9 +1,10 @@
 
 "use client"
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from './navbar/navbar';
 import Hero from './hero/hero';
+import LoadingScreen from './components/LoadingScreen';
 import Shortform from './editsshowcasesection/shortform';
 import Thumbnail from './editsshowcasesection/thumbnail';
 import Longform from './editsshowcasesection/longform';
@@ -16,6 +17,16 @@ import FAQ from './aboutus/frequent';
 import Contact from './aboutus/email';
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true)
+  const [showContent, setShowContent] = useState(false)
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false)
+    setTimeout(() => {
+      setShowContent(true)
+    }, 300)
+  }
+
   useEffect(() => {
     // Add service-specific structured data
     const serviceStructuredData = {
@@ -69,20 +80,28 @@ export default function Home() {
 
   return (
     <>
-      {/* Fixed Hero Background */}
-      <div className='h-screen sticky overflow-hidden'>
-        <div className="relative z-20">
-          <Navbar />
-        </div>
-        
-        {/* Main content */}
-        <div className="relative z-10">
-            <Hero />
-        </div>
-      </div>
-      
-      {/* Scrollable Content Over Hero */}
-      <div className="relative z-10">          
+      {/* Loading Screen */}
+      {isLoading && (
+        <LoadingScreen onComplete={handleLoadingComplete} />
+      )}
+
+      {/* Main Content */}
+      {showContent && (
+        <>
+          {/* Fixed Hero Background */}
+          <div className='h-screen sticky overflow-hidden'>
+            <div className="relative z-20">
+              <Navbar />
+            </div>
+            
+            {/* Main content */}
+            <div className="relative z-10">
+                <Hero />
+            </div>
+          </div>
+          
+          {/* Scrollable Content Over Hero */}
+          <div className="relative z-10">          
           {/* Content sections that will scroll over the hero */}
           <section className='bg-black rounded-sm' aria-label="Our Services">
             <Video></Video>
@@ -103,6 +122,8 @@ export default function Home() {
             <Contact></Contact>
             </section>
           </div>
+        </>
+      )}
     </>
   );
 }
