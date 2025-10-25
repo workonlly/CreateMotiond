@@ -24,20 +24,34 @@ const Navbar = () => {
       className="fixed top-0 left-0 right-0 z-50 px-4 pt-4"
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      transition={{ 
+        duration: 0.4, 
+        ease: [0.25, 0.46, 0.45, 0.94],
+        type: "tween"
+      }}
     >
       <motion.nav 
         className="max-w-7xl mx-auto bg-white/90 backdrop-blur-lg rounded-2xl shadow-lg border border-gray-200/50"
-        initial={{ scale: 0.9, opacity: 0 }}
+        initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+        transition={{ 
+          duration: 0.3, 
+          delay: 0.05, 
+          ease: [0.25, 0.46, 0.45, 0.94],
+          type: "tween"
+        }}
       >
         <div className="flex items-center justify-between h-16 md:h-18 px-4 sm:px-6 lg:px-8">
           {/* Logo */}
           <motion.div
-            initial={{ x: -50, opacity: 0 }}
+            initial={{ x: -30, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ 
+              duration: 0.3, 
+              delay: 0.1,
+              ease: [0.25, 0.46, 0.45, 0.94],
+              type: "tween"
+            }}
           >
             <Link href="/" className="flex items-center group">
               <motion.img
@@ -46,15 +60,26 @@ const Navbar = () => {
                 className="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-300"
                 width={40}
                 height={40}
-                initial={{ rotate: -180, scale: 0 }}
+                initial={{ rotate: -90, scale: 0.8 }}
                 animate={{ rotate: 0, scale: 1 }}
-                transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+                transition={{ 
+                  duration: 0.4, 
+                  delay: 0.15, 
+                  ease: [0.34, 1.56, 0.64, 1],
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 20
+                }}
               />
               <motion.span 
                 className="ml-2 text-xl font-bold text-black sedan-sc-regular sm:inline"
-                initial={{ opacity: 0, x: -20 }}
+                initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.8 }}
+                transition={{ 
+                  duration: 0.25, 
+                  delay: 0.2,
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
               >
                 CreateMotions
               </motion.span>
@@ -66,12 +91,13 @@ const Navbar = () => {
             {navLinks.map((link, index) => (
               <motion.div
                 key={link.name}
-                initial={{ y: -30, opacity: 0 }}
+                initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ 
-                  duration: 0.5, 
-                  delay: 1.0 + (index * 0.1),
-                  ease: "easeOut" 
+                  duration: 0.25, 
+                  delay: 0.25 + (index * 0.03),
+                  ease: [0.25, 0.46, 0.45, 0.94],
+                  type: "tween"
                 }}
               >
                 <Link
@@ -91,9 +117,14 @@ const Navbar = () => {
           {/* CTA Button */}
           <motion.div 
             className="hidden md:block"
-            initial={{ x: 50, opacity: 0 }}
+            initial={{ x: 30, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.6, delay: 1.5 }}
+            transition={{ 
+              duration: 0.3, 
+              delay: 0.4,
+              ease: [0.25, 0.46, 0.45, 0.94],
+              type: "tween"
+            }}
           >
             <a href="/Links">
               <motion.button 
