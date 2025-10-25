@@ -36,7 +36,7 @@ const socialLinks = [
   },
   {
     name: 'Discord',
-    url: 'https://discord.gg/your-discord-server',
+    url: 'https://discord.gg/qUxb9P3Ua',
     description: 'Join our community',
     icon: '/comp/discord-v2-svgrepo-com.svg',
     color: 'indigo',

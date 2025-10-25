@@ -146,7 +146,7 @@ function Video() {
                   <video 
                     ref={videoRef}
                     src="/video.mp4"
-                    className="w-full h-[280px] md:h-[350px] lg:h-[420px] object-cover cursor-pointer"
+                    className="w-full h-[280px] md:h-[350px] lg:h-[420px] object-cover sm:object-contain cursor-pointer"
                     poster="/video.png"
                     muted={isMuted}
                     onClick={togglePlayPause}
