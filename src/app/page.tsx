@@ -1,11 +1,9 @@
 
 "use client"
 
-import { useEffect, useState, useRef } from 'react';
-import { gsap } from 'gsap';
+import { useEffect } from 'react';
 import Navbar from './navbar/navbar';
 import Hero from './hero/hero';
-import LoadingScreen from './components/LoadingScreen';
 import Shortform from './editsshowcasesection/shortform';
 import Thumbnail from './editsshowcasesection/thumbnail';
 import Longform from './editsshowcasesection/longform';
@@ -18,45 +16,6 @@ import FAQ from './aboutus/frequent';
 import Contact from './aboutus/email';
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true)
-  const [showContent, setShowContent] = useState(false)
-  const navbarRef = useRef<HTMLDivElement>(null)
-  const heroRef = useRef<HTMLDivElement>(null)
-
-  const handleLoadingComplete = () => {
-    setIsLoading(false)
-    // Small delay then show content and start animations
-    setTimeout(() => {
-      setShowContent(true)
-      startBlendUpAnimations()
-    }, 300)
-  }
-
-  const startBlendUpAnimations = () => {
-    const tl = gsap.timeline()
-
-    // Set initial states
-    gsap.set([navbarRef.current, heroRef.current], {
-      y: 50,
-      opacity: 0
-    })
-
-    // Animate navbar first with blend up effect
-    tl.to(navbarRef.current, {
-      y: 0,
-      opacity: 1,
-      duration: 1.2,
-      ease: "power3.out"
-    })
-    // Then animate hero with slight delay
-    .to(heroRef.current, {
-      y: 0,
-      opacity: 1,
-      duration: 1.4,
-      ease: "power3.out"
-    }, "-=0.8") // Start hero animation before navbar completes
-  }
-
   useEffect(() => {
     // Add service-specific structured data
     const serviceStructuredData = {
@@ -110,30 +69,20 @@ export default function Home() {
 
   return (
     <>
-      {/* Professional Loading Screen */}
-      {isLoading && (
-        <LoadingScreen onComplete={handleLoadingComplete} />
-      )}
-
-      {/* Main Content */}
-      {showContent && (
-        <>
-          {/* Fixed Hero Background */}
-          <div className='h-screen sticky'>
-            <div ref={navbarRef}>
-              <Navbar />
-            </div>
-            
-            {/* Main content with fade in */}
-            <div ref={heroRef} className={`transition-opacity duration-700 ${showContent ? 'opacity-100' : 'opacity-0'}`}>
-                <Hero />
-            </div>
-          </div>
-          
-          {/* Scrollable Content Over Hero */}
-          <div className="relative z-10">
-    
-          
+      {/* Fixed Hero Background */}
+      <div className='h-screen sticky overflow-hidden'>
+        <div className="relative z-20">
+          <Navbar />
+        </div>
+        
+        {/* Main content */}
+        <div className="relative z-10">
+            <Hero />
+        </div>
+      </div>
+      
+      {/* Scrollable Content Over Hero */}
+      <div className="relative z-10">          
           {/* Content sections that will scroll over the hero */}
           <section className='bg-black rounded-sm' aria-label="Our Services">
             <Video></Video>
@@ -154,8 +103,6 @@ export default function Home() {
             <Contact></Contact>
             </section>
           </div>
-        </>
-      )}
     </>
   );
 }

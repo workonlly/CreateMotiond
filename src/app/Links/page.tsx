@@ -5,7 +5,7 @@ import { Metadata } from 'next'
 const socialLinks = [
   {
     name: 'WhatsApp',
-    url: 'https://wa.me/your-whatsapp-number',
+    url: 'https://wa.me/918219276410?text=Hello%2C%20I%27m%20interested%20in%20learning%20more%20about%20your%20video%20editing%20and%20motion%20graphics%20services.%20Could%20you%20please%20provide%20me%20with%20more%20information%3F',
     description: 'Send us a message',
     icon: '/comp/whatsapp-svgrepo-com.svg',
     color: 'green',
@@ -15,7 +15,7 @@ const socialLinks = [
   },
   {
     name: 'LinkedIn',
-    url: 'https://linkedin.com/company/createmotion',
+    url: 'https://www.linkedin.com/company/createmotionss/',
     description: 'Professional network',
     icon: '/comp/linkedin-svgrepo-com.svg',
     color: 'blue',
@@ -25,7 +25,7 @@ const socialLinks = [
   },
   {
     name: 'Instagram',
-    url: 'https://instagram.com/createmotion',
+    url: 'https://www.instagram.com/createmotions?igsh=MWR1czc5dW1tbHpkNA==',
     description: 'Follow our work',
     icon: '/comp/instagram-1-svgrepo-com.svg',
     color: 'pink',
@@ -45,7 +45,7 @@ const socialLinks = [
   },
   {
     name: 'X',
-    url: 'https://x.com/createmotion',
+    url: 'https://x.com/createmotions3',
     description: 'Latest updates',
     icon: '/comp/icons8-x-logo.svg',
     color: 'gray',

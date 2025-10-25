@@ -79,19 +79,9 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
       setProgress(prev => {
         if (prev >= 100) {
           clearInterval(timer)
-          // Exit animation before calling onComplete
-          if (containerRef.current) {
-            gsap.to(containerRef.current, {
-              opacity: 0,
-              scale: 1.1,
-              filter: "blur(10px)",
-              duration: 0.8,
-              ease: "power3.out",
-              onComplete: () => onComplete()
-            })
-          } else {
-            setTimeout(onComplete, 500)
-          }
+          // Simply call onComplete without exit animation
+          // Parent component will handle the upward slide
+          setTimeout(() => onComplete(), 300)
           return 100
         }
         return prev + 2
@@ -112,7 +102,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-50 bg-white flex items-center justify-center"
+      className="fixed inset-0 z-50 bg-white flex items-center justify-center overflow-hidden"
     >
       {/* Background Grid Pattern */}
       <div className="absolute inset-0 opacity-5">
@@ -161,16 +151,16 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
         {/* Progress Bar */}
         <div
           ref={progressBarRef}
-          className="w-full bg-gray-200 rounded-full h-2 mb-4 overflow-hidden"
+          className="w-full bg-gray-200 rounded-full h-3 mb-4 overflow-hidden shadow-inner"
         >
           <div
-            className="h-full bg-black rounded-full"
+            className="h-full bg-linear-to-r from-black to-gray-800 rounded-full transition-all duration-300 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>
 
         {/* Progress Percentage */}
-        <div className="text-sm text-gray-500 mb-6">
+        <div className="text-sm font-medium text-gray-500 mb-6">
           {progress}%
         </div>
 
@@ -179,7 +169,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           ref={stepsRef}
           className="h-8"
         >
-          <p className="text-gray-600 text-sm">
+          <p className="text-gray-600 text-sm transition-all duration-500">
             {loadingSteps[currentStep]}
           </p>
         </div>
@@ -189,7 +179,8 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           {[0, 1, 2].map((i) => (
             <div
               key={i}
-              className="w-2 h-2 bg-black rounded-full"
+              className="w-2 h-2 bg-black rounded-full animate-pulse"
+              style={{ animationDelay: `${i * 0.2}s` }}
             />
           ))}
         </div>
