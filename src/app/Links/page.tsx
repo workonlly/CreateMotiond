@@ -1,5 +1,6 @@
 import React from 'react'
 import { Metadata } from 'next'
+import LoadingWrapper from '../components/LoadingWrapper'
 
 // Social media links data with actual URLs (replace with your real links)
 const socialLinks = [
@@ -76,7 +77,7 @@ function Links() {
   };
 
   return (
-    <>
+    <LoadingWrapper>
       {/* Structured Data */}
       <script
         type="application/ld+json"
@@ -163,7 +164,7 @@ function Links() {
           </article>
         </section>
       </main>
-    </>
+    </LoadingWrapper>
   )
 }
 

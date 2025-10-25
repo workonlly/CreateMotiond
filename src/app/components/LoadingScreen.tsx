@@ -133,9 +133,9 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
           ref={logoRef}
           className="mb-8"
         >
-          <div className="w-20 h-20 mx-auto bg-black rounded-2xl flex items-center justify-center mb-4 shadow-2xl">
+          <div className="w-20 h-20 mx-auto  rounded-2xl flex items-center justify-center mb-4 shadow-2xl">
             <span className="text-white text-2xl font-bold">
-              CM
+              <img src="/create.png" alt="" />
             </span>
           </div>
         </div>

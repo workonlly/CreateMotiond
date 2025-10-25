@@ -1,10 +1,10 @@
 
 "use client"
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import LoadingWrapper from './components/LoadingWrapper';
 import Navbar from './navbar/navbar';
 import Hero from './hero/hero';
-import LoadingScreen from './components/LoadingScreen';
 import Shortform from './editsshowcasesection/shortform';
 import Thumbnail from './editsshowcasesection/thumbnail';
 import Longform from './editsshowcasesection/longform';
@@ -17,64 +17,6 @@ import FAQ from './aboutus/frequent';
 import Contact from './aboutus/email';
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true)
-  const [showContent, setShowContent] = useState(false)
-  const [componentsLoaded, setComponentsLoaded] = useState(false)
-
-  const handleLoadingComplete = () => {
-    // Only proceed if components are actually loaded
-    if (componentsLoaded) {
-      setIsLoading(false)
-      setTimeout(() => {
-        setShowContent(true)
-      }, 300)
-    }
-  }
-
-  // Preload and prepare all components
-  useEffect(() => {
-    const preloadComponents = async () => {
-      // Simulate component loading time and ensure all heavy components are ready
-      await new Promise(resolve => setTimeout(resolve, 2000)) // Minimum 2 seconds for real loading
-      
-      // Pre-render components in background to ensure they're ready
-      const componentsToPreload = [
-        import('./navbar/navbar'),
-        import('./hero/hero'),
-        import('./editsshowcasesection/shortform'),
-        import('./editsshowcasesection/thumbnail'),
-        import('./editsshowcasesection/longform'),
-        import('./hero/video'),
-        import('./price/pricing'),
-        import('./aboutus/aboutus'),
-        import('./aboutus/pathline'),
-        import('./aboutus/clientreview'),
-        import('./aboutus/frequent'),
-        import('./aboutus/email')
-      ]
-
-      try {
-        await Promise.all(componentsToPreload)
-        setComponentsLoaded(true)
-      } catch (error) {
-        console.log('Components loaded with some delays, proceeding...')
-        setComponentsLoaded(true)
-      }
-    }
-
-    preloadComponents()
-  }, [])
-
-  // Auto-trigger loading complete when components are ready
-  useEffect(() => {
-    if (componentsLoaded && isLoading) {
-      // Small delay to ensure loading screen shows minimum time
-      setTimeout(() => {
-        handleLoadingComplete()
-      }, 500)
-    }
-  }, [componentsLoaded, isLoading])
-
   useEffect(() => {
     // Add service-specific structured data
     const serviceStructuredData = {
@@ -127,69 +69,41 @@ export default function Home() {
   }, []);
 
   return (
-    <>
-      {/* Loading Screen */}
-      {isLoading && (
-        <LoadingScreen onComplete={handleLoadingComplete} />
-      )}
-
-      {/* Pre-load components invisibly while loading */}
-      {!componentsLoaded && (
-        <div className="fixed -left-full -top-full opacity-0 pointer-events-none">
+    <LoadingWrapper>
+      {/* Fixed Hero Background */}
+      <div className='h-screen sticky top-0'>
+        <div className="absolute top-0 left-0 w-full z-20">
           <Navbar />
-          <Hero />
-          <Video />
-          <Shortform />
-          <Thumbnail />
-          <Longform />
-          <Pricing />
-          <About />
-          <Workflow />
-          <Testimonials />
-          <FAQ />
-          <Contact />
         </div>
-      )}
-
-      {/* Main Content */}
-      {showContent && (
-        <>
-          {/* Fixed Hero Background */}
-          <div className='h-screen sticky top-0'>
-            <div className="absolute top-0 left-0 w-full z-20">
-              <Navbar />
-            </div>
-            
-            {/* Fixed Hero Background */}
-            <div className="absolute inset-0 z-10">
-                <Hero />
-            </div>
-          </div>
-          
-          {/* Scrollable Content Over Hero */}
-          <div className="relative z-30 bg-white">
-          {/* Content sections that will scroll over the hero */}
-          <section className='bg-black rounded-sm' aria-label="Our Services">
-            <Video></Video>
-            <Shortform></Shortform>
-            <Thumbnail></Thumbnail>
-            <Longform></Longform>
-          </section>
-          
-          <section aria-label="Pricing Plans">
-            <Pricing></Pricing>
-          </section>
-          
-          <section aria-label="About Us and Contact">
-            <About></About>
-            <Workflow></Workflow>
-            <Testimonials></Testimonials>
-            <FAQ></FAQ>
-            <Contact></Contact>
-            </section>
-          </div>
-        </>
-      )}
-    </>
+        
+        {/* Fixed Hero Background */}
+        <div className="absolute inset-0 z-10">
+            <Hero />
+        </div>
+      </div>
+      
+      {/* Scrollable Content Over Hero */}
+      <div className="relative z-30 bg-white">
+      {/* Content sections that will scroll over the hero */}
+      <section className='bg-black rounded-sm' aria-label="Our Services">
+        <Video></Video>
+        <Shortform></Shortform>
+        <Thumbnail></Thumbnail>
+        <Longform></Longform>
+      </section>
+      
+      <section aria-label="Pricing Plans">
+        <Pricing></Pricing>
+      </section>
+      
+      <section aria-label="About Us and Contact">
+        <About></About>
+        <Workflow></Workflow>
+        <Testimonials></Testimonials>
+        <FAQ></FAQ>
+        <Contact></Contact>
+        </section>
+      </div>
+    </LoadingWrapper>
   );
 }
