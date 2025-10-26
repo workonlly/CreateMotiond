@@ -61,7 +61,7 @@ const Navbar = () => {
             <a href="/Links">
               <button className="relative bg-black hover:bg-white hover:text-black text-white px-8 py-3 rounded-md font-medium transition-all duration-300 shadow-lg hover:shadow-2xl hover:scale-105 group border-2 border-black">
                 <span className="relative z-10 flex items-center gap-2">
-                  Get Started
+                  Connect
                   <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
@@ -123,7 +123,7 @@ const Navbar = () => {
             <a href="/Links">
             <button className="w-full relative bg-black hover:bg-blue-700 text-white px-6 py-3 rounded-full font-medium transition-all duration-300 mt-4 group overflow-hidden border-2 border-black shadow-lg">
               <span className="relative z-10 flex items-center justify-center gap-2">
-                Get Started
+                Connect
                 <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
