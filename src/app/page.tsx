@@ -71,8 +71,8 @@ export default function Home() {
   return (
     <LoadingWrapper>
       {/* Fixed Hero Background */}
-      <div className='h-screen sticky top-0'>
-        <div className="absolute top-0 left-0 w-full z-20">
+      <div className='h-screen  top-0'>
+        <div className="sticky top-0 left-0 w-full z-60">
           <Navbar />
         </div>
         

@@ -3,12 +3,6 @@ import { motion } from 'framer-motion'
 import { Mail, Linkedin, Instagram } from 'lucide-react'
 
 export default function Contact() {
-  const openMailClient = () => {
-    const subject = 'Inquiry from CreateMotion Site'
-    const body = 'Hi CreateMotion team,%0D%0A%0D%0AI saw your site and would like to discuss a project.'
-    window.location.href = `mailto:createmotions3@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-  }
-
   return (
     <section className="relative py-32 px-4 bg-black">
       <div className="max-w-4xl mx-auto text-center">
@@ -29,8 +23,8 @@ export default function Contact() {
         >
           If you have a project, idea, or just want to chat — click the button below to reach us.
         </motion.p>
-        <motion.button
-          onClick={openMailClient}
+         <a href="/Links"><motion.button
+          
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           aria-label="Connect with CreateMotion"
@@ -38,7 +32,7 @@ export default function Contact() {
         >
           
           Connect
-        </motion.button>
+        </motion.button></a> 
 
         <div className="mt-12 flex flex-col md:flex-row items-center justify-center gap-6">
           <a
