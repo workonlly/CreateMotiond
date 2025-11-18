@@ -70,20 +70,18 @@ export default function Home() {
 
   return (
     <LoadingWrapper>
+      {/* Navbar - Sticky at top */}
+      <div className="sticky top-0 left-0 w-full z-50">
+        <Navbar />
+      </div>
+
       {/* Fixed Hero Background */}
-      <div className='h-screen  top-0'>
-        <div className="sticky top-0 left-0 w-full z-60">
-          <Navbar />
-        </div>
-        
-        {/* Fixed Hero Background */}
-        <div className="absolute inset-0 z-10">
-            <Hero />
-        </div>
+      <div className="fixed inset-0 top-0 left-0 w-full h-screen z-10">
+        <Hero />
       </div>
       
       {/* Scrollable Content Over Hero */}
-      <div className="relative z-30 bg-white">
+      <div className="relative z-20" style={{ marginTop: '100vh' }}>
       {/* Content sections that will scroll over the hero */}
       <section className='bg-black rounded-sm' aria-label="Our Services">
         <Video></Video>
